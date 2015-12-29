@@ -10,8 +10,8 @@
     "test": "mocha ./test",
     "test:xunit": "npm test -- --reporter xunit",
     "lint": "jshint --exclude=node_modules/** **.js",
-    "heroku": "node infrastructure/prod.js",
-    "heroku:stage": "node infrastructure/test.js"
+    "provision": "node infrastructure/prod.js",
+    "provision:stage": "node infrastructure/test.js"
   },
   "author": "",
   "license": "ISC",
