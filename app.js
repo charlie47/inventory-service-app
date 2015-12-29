@@ -17,7 +17,6 @@ module.exports = function (repository) {
     app.use(bodyParser.json());
 
     app.get('/', logRequest, function (req, res) {
-        //throw new Error("ASDfdas");
         res.send('Hello World!');
     });
 
