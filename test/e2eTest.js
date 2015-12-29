@@ -33,7 +33,7 @@ describe('Book invectory', function() {
         };
 
         repository
-            .update(payload.isbn, payload.count)
+            .stockUp(payload.isbn, payload.count)
             .then(() => {
                 request(app)
                     .get('/stock/' + payload.isbn)

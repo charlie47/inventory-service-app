@@ -1,49 +1,32 @@
+//var url = 'mongodb://localhost:27017/book_inventory_db';
+var url = process.env.MONGOLAB_URI;
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/book_inventory_db';
+var connection = MongoClient.connect(url);
 
-var collection = MongoClient.connect(url).then((db) => {
-    return db.collection('books');
-});
-
-var repo = function() {
+module.exports = function () {
     return {
-        getCount: (isbn) => {
-            var query = {isbn: isbn};
-            return collection
-                .then((collection) => {
-                    return collection
-                        .find(query)
-                        .limit(1)
-                        .next();
-                })
-                .then((docs) => {
-                    if (docs) {
-                        return docs.count;
-                    }
-                    return null;
-                });
+        findAll: function () {
+            return connection.then(function (db) {
+                return db.collection('books').find({}).toArray();
+            });
         },
-
-        findAll: () => {
-            return collection
-                .then((collection) => {
-                    return collection
-                        .find({})
-                        .toArray();
-                });
+        stockUp: function (isbn, count) {
+            return connection.then(function (db) {
+                return db.collection('books').updateOne({isbn: isbn}, {
+                    isbn: isbn,
+                    count: count
+                }, {upsert: true});
+            });
         },
-
-        update: (isbn, count) => {
-            return collection
-                .then((collection) => {
-                    var filter = {isbn: isbn};
-                    var update = {isbn: isbn, count: count};
-                    var options = {upsert: true};
-
-                    return collection.updateOne(filter, update, options);
-                });
+        getCount: function (isbn) {
+            return connection.then(function (db) {
+                return db.collection('books').find({"isbn": isbn}).limit(1).next();
+            }).then(function (result) {
+                if (result) {
+                    return result.count;
+                }
+                return null;
+            });
         }
     };
 };
-
-module.exports = repo;

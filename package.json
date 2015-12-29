@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "start:dev": "nodemon server.js",
+    "start:dev": "MONGOLAB_URI=mongodb://heroku_4x78mgjj:5c76vmaot6lpjfdubl2k6f1qc4@ds033285.mongolab.com:33285/heroku_4x78mgjj nodemon server.js",
     "pretest": "npm run lint",
     "test": "mocha ./test",
     "test:xunit": "npm test -- --reporter xunit",

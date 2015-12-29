@@ -1,35 +1,34 @@
 var _ = require('lodash');
 
-module.exports = function() {
+module.exports = function () {
 
-    var collection = [];
+    var books = [];
 
     return {
-        getCount: (isbn) => {
-            var item = _.find(collection, (book) => {
-                return book.isbn == isbn;
-            });
-
-            return Promise.resolve(item);
+        findAll: function () {
+            return Promise.resolve(books);
         },
-
-        findAll: () => {
-            return Promise.resolve(collection);
-        },
-
-        update: (isbn, count) => {
-            var update = { isbn, count };
-            var index = _.findIndex(collection, (row) => {
-                return row.isbn == isbn;
-            });
-
-            if (index > -1) {
-                collection[index] = update;
+        stockUp: function (isbn, count) {
+            var item = this._findItem(isbn);
+            if (item) {
+                item.count = count;
             } else {
-                collection.push(update);
+                books.push({isbn: isbn, count: count});
             }
-
             return Promise.resolve();
+        },
+        _findItem: function (isbn) {
+            return _.find(books, function (book) {
+                return book.isbn === isbn;
+            });
+        },
+        getCount: function (isbn) {
+            var item = this._findItem(isbn);
+            if (item) {
+                return Promise.resolve(item.count);
+            } else {
+                return Promise.resolve(null);
+            }
         }
     };
 };
