@@ -4,22 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "MONGOLAB_URI=mongodb://heroku_4x78mgjj:5c76vmaot6lpjfdubl2k6f1qc4@ds033285.mongolab.com:33285/heroku_4x78mgjj nodemon server.js",
+    "start": "NODE_ENV=production node server.js",
+    "start:dev": "NODE_ENV=test nodemon server.js",
     "pretest": "npm run lint",
     "test": "mocha ./test",
     "test:xunit": "npm test -- --reporter xunit",
-    "lint": "jshint --exclude=node_modules/** **.js"
+    "lint": "jshint --exclude=node_modules/** **.js",
+    "heroku": "node infrastructure/prod.js",
+    "heroku:stage": "node infrastructure/test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "dotenv": "^1.2.0",
     "express": "^4.13.3",
     "lodash": "^3.10.1",
     "mongodb": "^2.1.2"
   },
   "devDependencies": {
+    "heroin-js": "^1.4.0",
     "jshint": "^2.8.0",
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",

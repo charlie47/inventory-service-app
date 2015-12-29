@@ -1,4 +1,3 @@
-//var url = 'mongodb://localhost:27017/book_inventory_db';
 var url = process.env.MONGOLAB_URI;
 var MongoClient = require('mongodb').MongoClient;
 var connection = MongoClient.connect(url);
