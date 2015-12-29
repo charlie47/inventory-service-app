@@ -25,6 +25,7 @@ module.exports = function (repository) {
     app.get('/stock', routes.findAll);
 
     app.get('/stock/:isbn', routes.getCount);
+    app.get('/stock/:isbn/html', routes.getCountInHtml);
 
     app.post('/stock', routes.stockUp);
 

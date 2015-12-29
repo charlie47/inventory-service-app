@@ -20,6 +20,16 @@ module.exports = function (stockRepository) {
                 res.json({});
             });
         },
+        getCountInHtml: function (req, res) {
+            stockRepository.getCount(req.params.isbn).then(function (result) {
+                if (result !== null) {
+                    res.status(200).send('<div>' + result + ' in amount</div>');
+                } else {
+                    res.status(404).send('<div>No book with ISBN: ' + req.params.isbn + '.</div>');
+                }
+                res.send('');
+            });
+        },
         getAvailability: function (req, res) {
             stockRepository.getCount(req.params.isbn).then(function (result) {
                 if (result !== null) {
