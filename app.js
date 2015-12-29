@@ -29,7 +29,7 @@ module.exports = function (repository) {
 
     app.post('/stock', routes.stockUp);
 
-    app.use(routes.stockUp);
+    app.use(routes.clientError);
     app.use(routes.serverError);
 
     return app;
