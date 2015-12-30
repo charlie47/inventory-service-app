@@ -8,8 +8,8 @@ var testConfig = {
     domains: ['inventory-service-app-test.herokuapp.com'],
     config_vars: {
         NODE_ENV: 'test'
-    }//,
-    //log_drains: ['syslog://data.logentries.com:13636']
+    },
+    log_drains: ['syslog://data.logentries.com:13636']
 };
 
 var config = _.merge({}, baseConfig, testConfig);
